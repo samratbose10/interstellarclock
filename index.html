@@ -1,0 +1,146 @@
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Create the video element
+            var video = document.createElement('video');
+            video.src = 'stay.mp4'; // Replace 'stay.mp4' with the name of your video file
+            video.loop = true;
+            video.muted = true; // Set muted to true initially
+            video.style.position = 'fixed';
+            video.style.top = '0';
+            video.style.left = '0';
+            video.style.width = '100%';
+            video.style.height = '100%';
+            document.body.appendChild(video);
+
+            // Add event listener to start video and unmute when clicked
+            video.addEventListener('click', function () {
+                video.play();
+                video.muted = false;
+            });
+
+            //creating the title
+            var text = document.createElement('div');
+            text.innerHTML = 'Find out how long it\'s been on Miller\'s planet since Interstellar released.Click on the middle for the magic';
+            text.style.position = 'absolute';
+            text.style.top = '7%';
+            text.style.left = '50%';
+            text.style.transform = 'translate(-50%, -50%)';
+            text.style.fontSize = '25px';
+            text.style.color = 'white';
+            text.style.textAlign = 'center';
+            text.style.textShadow = '0 0 10px white';
+            document.body.appendChild(text);
+            //creating the time since earth label
+            var label = document.createElement('div');
+            label.innerHTML = 'Time since on Earth:';
+            label.style.position = 'absolute';
+            label.style.top = '20%';
+            label.style.left = '10%';
+            label.style.fontSize = '45px';
+            label.style.color = 'white';
+            label.style.textShadow = '0 0 10px white';
+            document.body.appendChild(label);
+            //creating the time since Miller's label
+            var label = document.createElement('div');
+            label.innerHTML = 'Time since on Miller\'s planet:';
+            label.style.position = 'absolute';
+            label.style.top = '20%';
+            label.style.left = '60%';
+            label.style.fontSize = '45px';
+            label.style.color = 'white';
+            label.style.textShadow = '0 0 10px white';
+            document.body.appendChild(label);
+            //creating the footer
+            var text = document.createElement('div');
+            text.innerHTML = 'CASE: Cooper, do we really need this calculator?<br>Cooper: No. It\'s necessary.';
+            text.style.position = 'absolute';
+            text.style.bottom = '1%';
+            text.style.left = '50%';
+            text.style.transform = 'translate(-50%, -50%)';
+            text.style.fontSize = '15px';
+            text.style.color = 'white';
+            text.style.textAlign = 'center';
+            text.style.textShadow = '0 0 10px white';
+            document.body.appendChild(text);
+
+            var text2 = document.createElement('div');
+            text2.innerHTML = 'You may need to refresh to update count';
+            text2.style.position = 'absolute';
+            text2.style.bottom = '0%';
+            text2.style.left = '50%';
+            text2.style.transform = 'translate(-50%, -50%)';
+            text2.style.fontSize = '7px';
+            text2.style.color = 'white';
+            text2.style.textAlign = 'center';
+            text2.style.textShadow = '0 0 10px white';
+            document.body.appendChild(text2);
+
+            var counter = document.createElement('div');
+            counter.style.position = 'absolute';
+            counter.style.top = '27%';
+            counter.style.left = '13%';
+            counter.style.fontSize = '35px';
+            counter.style.color = 'white';
+            counter.style.textShadow = '0 0 10px white';
+            counter.innerHTML = '<span id="counter">0</span>';
+            document.body.appendChild(counter);
+
+            //calculating the live time and displaying it
+            var counterInterval = setInterval(function () {
+                var now = new Date();
+                var then = new Date(2014, 10, 26, 0, 0, 0, 0);
+                var diff = now - then;
+                var days1 = Math.floor(diff / (1000 * 60 * 60 * 24));
+                var years = Math.floor(days1 / 365);
+                var days = Math.floor(days1 % 365);
+                var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('counter').innerHTML = years + 'y ' + days + 'd ' + hours +
+                    'h ' + minutes + 'm ' + seconds + 's';
+            }, 1000);
+
+            //misc functions to calculate the time on Miller's planet
+            function getDays() {
+                var startTime = new Date(2014, 10, 26, 0, 0, 0, 0);
+                var currentTime = new Date();
+                var timeDiff = currentTime - startTime; //difference between current time and release time
+                var seconds = Math.floor(timeDiff / 1000);
+                var minutes = Math.floor(seconds / 60);
+                var hours = Math.floor(minutes / 60);
+                var days = Math.floor(hours / 24);
+                return days;
+            }
+
+            function getYears() {
+                var days = getDays();
+                var years = (days / 365.000);
+                return years;
+            }
+
+            function getWeeks() {
+                var years = getYears();
+                var weeks1 = (years / 7.000) * 60.000;
+                var years1 = Math.floor(years / 7.000);
+                var y2 = Math.floor((years % 7) * 60);
+                var y3 = years1 + " hours " + y2 + " minutes ";
+                return y3;
+            }
+
+            var weeks = document.createElement('div');
+            weeks.innerHTML = getWeeks();
+            weeks.style.position = 'absolute';
+            weeks.style.top = '27%';
+            weeks.style.right = '13%';
+            weeks.style.fontSize = '35px';
+            weeks.style.color = 'white';
+            weeks.style.textShadow = '0 0 10px white';
+            document.body.appendChild(weeks);
+
+
+        });
+    </script>
+</head>
+
+</html>
